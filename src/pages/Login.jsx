@@ -56,7 +56,7 @@ const Login = () => {
           </motion.div>
           
           <h1 className="text-4xl font-bold text-romantic-burgundy mb-2">
-            Happy 29, Ira
+            מזל טוב אירה
           </h1>
           
           <Badge variant="romantic" size="lg" className="mx-auto">
