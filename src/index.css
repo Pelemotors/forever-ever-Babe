@@ -1,0 +1,98 @@
+@import url('https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700&family=Rubik:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply box-border;
+  }
+
+  html {
+    @apply scroll-smooth;
+  }
+
+  body {
+    @apply font-sans antialiased;
+    direction: rtl;
+    overflow-x: hidden;
+  }
+
+  #root {
+    @apply w-full min-h-screen;
+  }
+}
+
+@layer components {
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    @apply w-2;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-romantic-cream;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-romantic-burgundy rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-romantic-bordeaux;
+  }
+
+  /* RTL Utilities */
+  .rtl {
+    direction: rtl;
+  }
+
+  .ltr {
+    direction: ltr;
+  }
+
+  /* Gradient backgrounds */
+  .bg-romantic-gradient {
+    background: linear-gradient(135deg, #FFF8F0 0%, #FFE5E5 50%, #FFB6C1 100%);
+  }
+
+  .bg-romantic-gradient-dark {
+    background: linear-gradient(135deg, #722F37 0%, #8B4556 50%, #B89968 100%);
+  }
+
+  /* Glass effect */
+  .glass {
+    @apply backdrop-blur-md bg-white/30 border border-white/20;
+  }
+
+  /* Card styles */
+  .card-romantic {
+    @apply bg-white rounded-2xl shadow-lg p-6 transition-all duration-300 hover:shadow-xl;
+  }
+
+  /* Text gradients */
+  .text-gradient-romantic {
+    @apply bg-gradient-to-r from-romantic-burgundy to-romantic-gold bg-clip-text text-transparent;
+  }
+}
+
+@layer utilities {
+  /* Animation delays */
+  .animation-delay-200 {
+    animation-delay: 200ms;
+  }
+
+  .animation-delay-400 {
+    animation-delay: 400ms;
+  }
+
+  .animation-delay-600 {
+    animation-delay: 600ms;
+  }
+
+  /* Perspective for 3D effects */
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+}
+

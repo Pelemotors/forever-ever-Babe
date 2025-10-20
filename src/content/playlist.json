@@ -1,0 +1,21 @@
+{
+  "title": "השירים שלנו",
+  "description": "המוזיקה שמלווה אותנו, השירים שמספרים את הסיפור שלנו",
+  "songs": [
+    {
+      "id": "desert-rose",
+      "title": "Desert Rose",
+      "artist": "Sting feat. Cheb Mami",
+      "youtubeId": "C3lWwBslWqg",
+      "description": "השיר שלנו - לילה רגוע, כביש פתוח, ושקט שמבין אותנו. יש שירים שהם זמן, וזה אחד מהם."
+    },
+    {
+      "id": "work-song",
+      "title": "Work Song",
+      "artist": "Hozier",
+      "youtubeId": "nH7bjV0Q_44",
+      "description": "שיר שמרגש אותנו, מדבר על אהבה עמוקה ונאמנות שלא מתפשרת. כל מילה מתאימה."
+    }
+  ]
+}
+
