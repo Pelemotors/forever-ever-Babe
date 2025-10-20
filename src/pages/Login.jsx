@@ -37,6 +37,12 @@ const Login = () => {
     setLoading(false);
   };
 
+  const handleGuestEntry = () => {
+    // Login as guest without credentials
+    login('guest', 'guest');
+    navigate('/guestbook');
+  };
+
   return (
     <div className="min-h-screen bg-romantic-gradient flex items-center justify-center px-4 py-12">
       <motion.div
@@ -112,6 +118,19 @@ const Login = () => {
               {loading ? 'מתחבר...' : 'כניסה'}
             </Button>
           </form>
+
+          {/* Guest entry button */}
+          <div className="mt-4">
+            <Button
+              type="button"
+              variant="secondary"
+              size="lg"
+              className="w-full"
+              onClick={handleGuestEntry}
+            >
+              ברכות לאירה – כניסת אורחים
+            </Button>
+          </div>
 
           <div className="mt-6 text-center text-sm text-romantic-burgundy/60">
             <p>ברוכים הבאים לאתר המיוחד של אירה 💕</p>

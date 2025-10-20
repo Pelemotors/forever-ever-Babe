@@ -4,7 +4,8 @@ import useSession from '../../state/useSession';
 const ProtectedRoute = ({ children, requireRole = null }) => {
   const { isAuthenticated, role } = useSession();
 
-  // Check if user is authenticated
+  // Allow guest route to be publicly accessible via login button
+  // All routes still require authentication flag; the guest button sets it
   if (!isAuthenticated) {
     return <Navigate to="/login" replace />;
   }
