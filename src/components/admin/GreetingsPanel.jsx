@@ -151,11 +151,11 @@ const GreetingsPanel = () => {
                       </div>
                       <div className="flex-1 min-w-0">
                         <h4 className="font-bold text-romantic-burgundy truncate">
-                          {greeting.fromName}
+                          {greeting.full_name}
                         </h4>
                         <div className="flex items-center gap-2 text-xs text-romantic-burgundy/60">
                           <Calendar size={12} />
-                          <span>{formatDate(greeting.createdAt, 'D/M/YY HH:mm')}</span>
+                          <span>{formatDate(greeting.created_at, 'D/M/YY HH:mm')}</span>
                           <Badge variant={getStatusVariant(greeting.status)} size="sm">
                             {getStatusLabel(greeting.status)}
                           </Badge>
@@ -164,7 +164,7 @@ const GreetingsPanel = () => {
                     </div>
 
                     <p className="text-romantic-burgundy/80 mb-3 line-clamp-2">
-                      {greeting.message}
+                      {greeting.content}
                     </p>
 
                     {greeting.mediaUrl && (
@@ -238,10 +238,10 @@ const GreetingsPanel = () => {
                 </div>
                 <div>
                   <h3 className="font-bold text-romantic-burgundy text-lg">
-                    {selectedGreeting.fromName}
+                    {selectedGreeting.full_name}
                   </h3>
                   <div className="text-sm text-romantic-burgundy/60">
-                    {formatDate(selectedGreeting.createdAt, 'D MMMM YYYY, HH:mm')}
+                    {formatDate(selectedGreeting.created_at, 'D MMMM YYYY, HH:mm')}
                   </div>
                 </div>
               </div>
@@ -251,7 +251,7 @@ const GreetingsPanel = () => {
             </div>
 
             <p className="text-romantic-burgundy/90 leading-relaxed mb-4 whitespace-pre-wrap">
-              {selectedGreeting.message}
+              {selectedGreeting.content}
             </p>
 
             {selectedGreeting.mediaUrl && (
