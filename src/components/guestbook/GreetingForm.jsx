@@ -48,7 +48,7 @@ const GreetingForm = () => {
       });
 
       // Success!
-      toast.success('הברכה נשלחה בהצלחה! היא תופיע לאחר אישור.');
+      toast.success('הברכה נשלחה בהצלחה! תודה על המילים החמות 💕');
 
       // Reset form
       setFormData({ fromName: '', message: '' });
@@ -127,7 +127,7 @@ const GreetingForm = () => {
         </Button>
 
         <p className="text-xs text-romantic-burgundy/60 text-center">
-          הברכה תופיע באתר לאחר אישור
+          תודה על הברכה החמה! 💕
         </p>
       </form>
     </Card>

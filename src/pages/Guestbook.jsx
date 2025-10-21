@@ -5,8 +5,12 @@ import Layout from '../components/layout/Layout';
 import GreetingForm from '../components/guestbook/GreetingForm';
 import GreetingList from '../components/guestbook/GreetingList';
 import Badge from '../components/ui/Badge';
+import useSession from '../state/useSession';
 
 const Guestbook = () => {
+  const { role } = useSession();
+  const isGuest = role === 'guest';
+
   return (
     <Layout>
       <Toaster 
@@ -54,17 +58,19 @@ const Guestbook = () => {
           <GreetingForm />
         </motion.div>
 
-        {/* Greetings List */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4 }}
-        >
-          <h2 className="text-3xl font-bold text-romantic-burgundy mb-8 text-center">
-            ברכות שהתקבלו
-          </h2>
-          <GreetingList />
-        </motion.div>
+        {/* Greetings List - Only for admin/ira, not for guests */}
+        {!isGuest && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4 }}
+          >
+            <h2 className="text-3xl font-bold text-romantic-burgundy mb-8 text-center">
+              ברכות שהתקבלו
+            </h2>
+            <GreetingList />
+          </motion.div>
+        )}
       </div>
     </Layout>
   );
