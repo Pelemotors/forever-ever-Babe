@@ -47,7 +47,7 @@ function App() {
         <Route
           path="/"
           element={
-            <ProtectedRoute requireRole="admin">
+            <ProtectedRoute>
               <Home />
             </ProtectedRoute>
           }
@@ -55,7 +55,7 @@ function App() {
         <Route
           path="/story"
           element={
-            <ProtectedRoute requireRole="admin">
+            <ProtectedRoute>
               <Story />
             </ProtectedRoute>
           }
@@ -63,7 +63,7 @@ function App() {
         <Route
           path="/stories"
           element={
-            <ProtectedRoute requireRole="admin">
+            <ProtectedRoute>
               <Stories />
             </ProtectedRoute>
           }
@@ -71,7 +71,7 @@ function App() {
         <Route
           path="/stories/:id"
           element={
-            <ProtectedRoute requireRole="admin">
+            <ProtectedRoute>
               <StoryView />
             </ProtectedRoute>
           }
@@ -79,7 +79,7 @@ function App() {
         <Route
           path="/timeline"
           element={
-            <ProtectedRoute requireRole="admin">
+            <ProtectedRoute>
               <Timeline />
             </ProtectedRoute>
           }
@@ -87,7 +87,7 @@ function App() {
         <Route
           path="/gallery"
           element={
-            <ProtectedRoute requireRole="admin">
+            <ProtectedRoute>
               <Gallery />
             </ProtectedRoute>
           }
@@ -95,7 +95,7 @@ function App() {
         <Route
           path="/playlist"
           element={
-            <ProtectedRoute requireRole="admin">
+            <ProtectedRoute>
               <Playlist />
             </ProtectedRoute>
           }

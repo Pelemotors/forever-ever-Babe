@@ -315,5 +315,5 @@ npm run dev
 4. לעדכן סיסמאות ב-.env
 5. לדחוף ל-Git ול-Vercel
 
-**forever&everbabe** ❤️
+**For Ever & Ever Babe** ❤️
 

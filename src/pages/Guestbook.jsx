@@ -48,22 +48,24 @@ const Guestbook = () => {
           </div>
         </motion.div>
 
-        {/* Greeting Form */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-          className="mb-16 max-w-3xl mx-auto"
-        >
-          <GreetingForm />
-        </motion.div>
+        {/* Greeting Form - Only for guests */}
+        {isGuest && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className="mb-16 max-w-3xl mx-auto"
+          >
+            <GreetingForm />
+          </motion.div>
+        )}
 
         {/* Greetings List - Only for admin/ira, not for guests */}
         {!isGuest && (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4 }}
+            transition={{ delay: 0.2 }}
           >
             <h2 className="text-3xl font-bold text-romantic-burgundy mb-8 text-center">
               ברכות שהתקבלו

@@ -26,8 +26,8 @@ const Header = () => {
     !item.roles || item.roles.includes(role)
   );
 
-  const handleLogout = () => {
-    logout();
+  const handleLogout = async () => {
+    await logout();
     setMobileMenuOpen(false);
   };
 
@@ -49,7 +49,7 @@ const Header = () => {
               </span>
             </motion.div>
             <Badge variant="romantic" size="sm" className="hidden md:inline-flex">
-              forever&everbabe
+              For Ever & Ever Babe
             </Badge>
           </Link>
 

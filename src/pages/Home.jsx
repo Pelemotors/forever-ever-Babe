@@ -88,7 +88,7 @@ const Home = () => {
               className="mb-8"
             >
               <Badge variant="romantic" size="lg" className="text-lg px-6 py-2">
-                {branding?.tagline || 'forever&everbabe'}
+                {branding?.tagline || 'For Ever & Ever Babe'}
               </Badge>
             </motion.div>
 

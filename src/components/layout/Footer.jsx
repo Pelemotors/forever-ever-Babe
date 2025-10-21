@@ -10,7 +10,7 @@ const Footer = () => {
           {/* Tagline */}
           <div className="flex items-center gap-2 text-romantic-burgundy">
             <Heart size={20} fill="currentColor" />
-            <span className="font-heading font-medium">forever&everbabe</span>
+            <span className="font-heading font-medium">For Ever & Ever Babe</span>
             <Heart size={20} fill="currentColor" />
           </div>
 

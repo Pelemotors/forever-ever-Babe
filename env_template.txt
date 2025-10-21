@@ -1,0 +1,21 @@
+VITE_APP_NAME="Happy 29 – Ira"
+VITE_BASE_URL=http://localhost:5173
+
+# Supabase
+VITE_SUPABASE_URL=https://your-project-id.supabase.co
+VITE_SUPABASE_ANON_KEY=your-anon-key-here
+VITE_SUPABASE_BUCKET=uploads
+
+# תצוגה לאחר אישור
+VITE_REQUIRE_APPROVAL=true
+
+# יצירת קשר לוואטסאפ
+VITE_CONTACT_WHATSAPP=050-4650155
+
+# Auth (MVP – client side) - רק לאירה ואורחים
+VITE_IRA_USERNAME=ira
+VITE_IRA_PASSWORD=ira123
+
+# ולידציה בצד לקוח (אפשר להשאיר)
+VITE_MAX_UPLOAD_MB=20
+VITE_ALLOWED_MIME=image/jpeg,image/png,video/mp4

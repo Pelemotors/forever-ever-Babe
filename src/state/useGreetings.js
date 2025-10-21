@@ -1,39 +1,116 @@
 import { create } from 'zustand';
+import { greetingsApi } from '../lib/supabase';
 
 const useGreetings = create((set, get) => {
-  // Load from localStorage on init
-  const stored = localStorage.getItem('greetings-storage');
-  const initial = stored ? JSON.parse(stored) : { greetings: [] };
-
-  // Save to localStorage helper
-  const saveToStorage = (greetings) => {
-    localStorage.setItem('greetings-storage', JSON.stringify({ greetings }));
-  };
-
   return {
-    greetings: initial.greetings,
+    greetings: [],
+    loading: false,
+    error: null,
 
-    // Add new greeting
-    addGreeting: (greeting) => {
-      const newGreeting = {
-        id: `greeting-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
-        ...greeting,
-        status: 'pending',
-        createdAt: new Date().toISOString(),
-      };
-
-      set((state) => {
-        const newGreetings = [...state.greetings, newGreeting];
-        saveToStorage(newGreetings);
-        return { greetings: newGreetings };
-      });
-
-      return newGreeting;
+    // Add new greeting (for guests)
+    addGreeting: async (greetingData) => {
+      set({ loading: true, error: null });
+      try {
+        const newGreeting = await greetingsApi.createGreeting(greetingData);
+        set((state) => ({
+          greetings: [...state.greetings, newGreeting],
+          loading: false
+        }));
+        return newGreeting;
+      } catch (error) {
+        set({ error: error.message, loading: false });
+        throw error;
+      }
     },
 
-    // Get all greetings
-    getAll: () => {
-      return get().greetings;
+    // Load approved greetings (for public display)
+    loadApprovedGreetings: async () => {
+      set({ loading: true, error: null });
+      try {
+        const greetings = await greetingsApi.getApprovedGreetings();
+        set({ greetings, loading: false });
+        return greetings;
+      } catch (error) {
+        set({ error: error.message, loading: false });
+        throw error;
+      }
+    },
+
+    // Load all greetings (for admin)
+    loadAllGreetings: async () => {
+      set({ loading: true, error: null });
+      try {
+        const greetings = await greetingsApi.getAllGreetings();
+        set({ greetings, loading: false });
+        return greetings;
+      } catch (error) {
+        set({ error: error.message, loading: false });
+        throw error;
+      }
+    },
+
+    // Load pending greetings (for admin)
+    loadPendingGreetings: async () => {
+      set({ loading: true, error: null });
+      try {
+        const greetings = await greetingsApi.getPendingGreetings();
+        set({ greetings, loading: false });
+        return greetings;
+      } catch (error) {
+        set({ error: error.message, loading: false });
+        throw error;
+      }
+    },
+
+    // Approve greeting (for admin)
+    approveGreeting: async (id) => {
+      set({ loading: true, error: null });
+      try {
+        const updatedGreeting = await greetingsApi.approveGreeting(id);
+        set((state) => ({
+          greetings: state.greetings.map((g) =>
+            g.id === id ? updatedGreeting : g
+          ),
+          loading: false
+        }));
+        return updatedGreeting;
+      } catch (error) {
+        set({ error: error.message, loading: false });
+        throw error;
+      }
+    },
+
+    // Reject greeting (for admin)
+    rejectGreeting: async (id) => {
+      set({ loading: true, error: null });
+      try {
+        const updatedGreeting = await greetingsApi.rejectGreeting(id);
+        set((state) => ({
+          greetings: state.greetings.map((g) =>
+            g.id === id ? updatedGreeting : g
+          ),
+          loading: false
+        }));
+        return updatedGreeting;
+      } catch (error) {
+        set({ error: error.message, loading: false });
+        throw error;
+      }
+    },
+
+    // Delete greeting (for admin)
+    deleteGreeting: async (id) => {
+      set({ loading: true, error: null });
+      try {
+        await greetingsApi.deleteGreeting(id);
+        set((state) => ({
+          greetings: state.greetings.filter((g) => g.id !== id),
+          loading: false
+        }));
+      } catch (error) {
+        set({ error: error.message, loading: false });
+        throw error;
+      }
     },
 
     // Get greetings by status
@@ -45,48 +122,13 @@ const useGreetings = create((set, get) => {
     // Get approved greetings only
     getApproved: () => {
       const { greetings } = get();
-      return greetings
-        .filter((g) => g.status === 'approved')
-        .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+      return greetings.filter((g) => g.status === 'approved');
     },
 
     // Get pending greetings
     getPending: () => {
       const { greetings } = get();
-      return greetings
-        .filter((g) => g.status === 'pending')
-        .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-    },
-
-    // Approve greeting
-    approveGreeting: (id) => {
-      set((state) => {
-        const newGreetings = state.greetings.map((g) =>
-          g.id === id ? { ...g, status: 'approved' } : g
-        );
-        saveToStorage(newGreetings);
-        return { greetings: newGreetings };
-      });
-    },
-
-    // Reject greeting
-    rejectGreeting: (id) => {
-      set((state) => {
-        const newGreetings = state.greetings.map((g) =>
-          g.id === id ? { ...g, status: 'rejected' } : g
-        );
-        saveToStorage(newGreetings);
-        return { greetings: newGreetings };
-      });
-    },
-
-    // Delete greeting
-    deleteGreeting: (id) => {
-      set((state) => {
-        const newGreetings = state.greetings.filter((g) => g.id !== id);
-        saveToStorage(newGreetings);
-        return { greetings: newGreetings };
-      });
+      return greetings.filter((g) => g.status === 'pending');
     },
 
     // Get greeting by ID

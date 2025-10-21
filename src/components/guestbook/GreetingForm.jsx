@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
 import useGreetings from '../../state/useGreetings';
+import useSession from '../../state/useSession';
 import { greetingSchema } from '../../lib/validators';
 import Input from '../ui/Input';
 import Textarea from '../ui/Textarea';
@@ -17,6 +18,7 @@ const GreetingForm = () => {
   const [loading, setLoading] = useState(false);
 
   const { addGreeting } = useGreetings();
+  const { role } = useSession();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -41,11 +43,18 @@ const GreetingForm = () => {
         message: formData.message,
       });
 
-      // Add greeting
-      addGreeting({
-        fromName: validatedData.fromName,
-        message: validatedData.message,
-      });
+      // Add greeting (to Supabase for guests, local for others)
+      if (role === 'guest') {
+        await addGreeting({
+          fullName: validatedData.fromName,
+          message: validatedData.message,
+        });
+      } else {
+        // For Ira and admin, just show success without saving
+        toast.success('הברכה נשלחה בהצלחה! תודה על המילים החמות 💕');
+        setFormData({ fromName: '', message: '' });
+        return;
+      }
 
       // Success!
       toast.success('הברכה נשלחה בהצלחה! תודה על המילים החמות 💕');

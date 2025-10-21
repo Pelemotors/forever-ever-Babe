@@ -19,11 +19,11 @@ const GreetingCard = ({ greeting, index = 0 }) => {
             </div>
             <div>
               <h3 className="font-bold text-romantic-burgundy text-lg">
-                {greeting.fromName}
+                {greeting.full_name}
               </h3>
               <div className="flex items-center gap-1 text-sm text-romantic-burgundy/60">
                 <Calendar size={14} />
-                <span>{formatDate(greeting.createdAt, 'D MMMM YYYY')}</span>
+                <span>{formatDate(greeting.created_at, 'D MMMM YYYY')}</span>
               </div>
             </div>
           </div>
@@ -31,7 +31,7 @@ const GreetingCard = ({ greeting, index = 0 }) => {
 
         {/* Message */}
         <p className="text-romantic-burgundy/90 leading-relaxed mb-4 whitespace-pre-wrap">
-          {greeting.message}
+          {greeting.content}
         </p>
 
         {/* Media */}

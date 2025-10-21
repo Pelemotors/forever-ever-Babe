@@ -2,7 +2,7 @@
 
 אתר יום הולדת מיוחד ומרגש שנבנה באהבה ליום ההולדת ה-29 של אירה ❤️
 
-## forever&everbabe
+## For Ever & Ever Babe
 
 ---
 
@@ -210,7 +210,7 @@ git push -u origin main
 
 פרויקט זה נבנה במיוחד ליום ההולדת ה-29 של אירה.
 
-**forever&everbabe** 💕
+**For Ever & Ever Babe** 💕
 
 ---
 

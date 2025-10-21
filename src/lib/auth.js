@@ -2,12 +2,12 @@
 
 // Validate credentials against ENV variables
 export const validateCredentials = (username, password) => {
-  const adminUsername = import.meta.env.VITE_ADMIN_USERNAME;
-  const adminPassword = import.meta.env.VITE_ADMIN_PASSWORD;
-  const iraUsername = import.meta.env.VITE_IRA_USERNAME;
-  const iraPassword = import.meta.env.VITE_IRA_PASSWORD;
-  const guestUsername = import.meta.env.VITE_GUEST_USERNAME;
-  const guestPassword = import.meta.env.VITE_GUEST_PASSWORD;
+  const adminUsername = import.meta.env.VITE_ADMIN_USERNAME || 'gal';
+  const adminPassword = import.meta.env.VITE_ADMIN_PASSWORD || 'admin123';
+  const iraUsername = import.meta.env.VITE_IRA_USERNAME || 'ira';
+  const iraPassword = import.meta.env.VITE_IRA_PASSWORD || 'ira123';
+  const guestUsername = import.meta.env.VITE_GUEST_USERNAME || 'family';
+  const guestPassword = import.meta.env.VITE_GUEST_PASSWORD || 'family123';
 
 
   // Check admin

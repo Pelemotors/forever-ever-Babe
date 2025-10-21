@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import { supabase } from '../lib/supabase';
 
 const useSession = create((set, get) => {
   // Load from localStorage on init
@@ -8,7 +9,7 @@ const useSession = create((set, get) => {
   return {
     ...initial,
 
-    // Login
+    // Login (for internal auth - guests and Ira)
     login: (username, role) => {
       const newState = {
         user: {
@@ -22,8 +23,42 @@ const useSession = create((set, get) => {
       localStorage.setItem('session-storage', JSON.stringify(newState));
     },
 
+    // Supabase Auth login (for admin)
+    loginWithSupabase: async (email, password) => {
+      try {
+        const { data, error } = await supabase.auth.signInWithPassword({
+          email,
+          password,
+        });
+
+        if (error) throw error;
+
+        const newState = {
+          user: {
+            username: data.user.email,
+            loginAt: new Date().toISOString(),
+            supabaseUser: data.user,
+          },
+          role: 'admin',
+          isAuthenticated: true,
+        };
+        set(newState);
+        localStorage.setItem('session-storage', JSON.stringify(newState));
+        return { success: true };
+      } catch (error) {
+        return { success: false, error: error.message };
+      }
+    },
+
     // Logout
-    logout: () => {
+    logout: async () => {
+      const { role } = get();
+      
+      // If admin, logout from Supabase too
+      if (role === 'admin') {
+        await supabase.auth.signOut();
+      }
+      
       const newState = {
         user: null,
         role: null,

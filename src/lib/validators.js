@@ -16,7 +16,6 @@ export const greetingSchema = z.object({
     .string()
     .min(1, 'הודעה נדרשת')
     .max(500, 'ההודעה ארוכה מדי (מקסימום 500 תווים)'),
-  mediaUrl: z.string().url().optional().or(z.literal('')),
 });
 
 // File validation

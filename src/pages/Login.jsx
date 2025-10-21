@@ -14,7 +14,7 @@ const Login = () => {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const { login } = useSession();
+  const { login, loginWithSupabase } = useSession();
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -22,24 +22,36 @@ const Login = () => {
     setError('');
     setLoading(true);
 
-    // Simulate a small delay for better UX
-    await new Promise(resolve => setTimeout(resolve, 500));
-
-    const result = validateCredentials(username, password);
-
-    if (result.valid) {
-      login(result.username, result.role);
-      // Navigate based on role
-      if (result.role === 'guest') {
-        navigate('/guestbook');
+    try {
+      // Check if this is admin login (email format)
+      if (username.includes('@')) {
+        // Supabase Auth for admin
+        const result = await loginWithSupabase(username, password);
+        if (result.success) {
+          navigate('/');
+        } else {
+          setError(result.error || 'שגיאה בהתחברות');
+        }
       } else {
-        navigate('/');
+        // Internal auth for Ira and guests
+        const result = validateCredentials(username, password);
+        if (result.valid) {
+          login(result.username, result.role);
+          // Navigate based on role
+          if (result.role === 'guest') {
+            navigate('/guestbook');
+          } else {
+            navigate('/');
+          }
+        } else {
+          setError('שם משתמש או סיסמה שגויים');
+        }
       }
-    } else {
-      setError('שם משתמש או סיסמה שגויים');
+    } catch (error) {
+      setError('אירעה שגיאה. נסה שוב.');
+    } finally {
+      setLoading(false);
     }
-
-    setLoading(false);
   };
 
   const handleGuestEntry = () => {
@@ -71,7 +83,7 @@ const Login = () => {
           </h1>
           
           <Badge variant="romantic" size="lg" className="mx-auto">
-            forever&everbabe
+            For Ever & Ever Babe
           </Badge>
         </div>
 
