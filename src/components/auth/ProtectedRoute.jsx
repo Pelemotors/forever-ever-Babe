@@ -12,6 +12,11 @@ const ProtectedRoute = ({ children, requireRole = null }) => {
 
   // Check if specific role is required
   if (requireRole && role !== requireRole) {
+    // If guest tries to access admin-only content, redirect to guestbook
+    if (role === 'guest') {
+      return <Navigate to="/guestbook" replace />;
+    }
+    // For other roles, redirect to home
     return <Navigate to="/" replace />;
   }
 
