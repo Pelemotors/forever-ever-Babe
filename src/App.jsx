@@ -43,11 +43,11 @@ function App() {
           element={isAuthenticated ? <Navigate to="/" replace /> : <Login />} 
         />
 
-        {/* Protected Routes */}
+        {/* Protected Routes - Admin/Ira only */}
         <Route
           path="/"
           element={
-            <ProtectedRoute>
+            <ProtectedRoute requireRole="admin">
               <Home />
             </ProtectedRoute>
           }
@@ -55,7 +55,7 @@ function App() {
         <Route
           path="/story"
           element={
-            <ProtectedRoute>
+            <ProtectedRoute requireRole="admin">
               <Story />
             </ProtectedRoute>
           }
@@ -63,7 +63,7 @@ function App() {
         <Route
           path="/stories"
           element={
-            <ProtectedRoute>
+            <ProtectedRoute requireRole="admin">
               <Stories />
             </ProtectedRoute>
           }
@@ -71,23 +71,15 @@ function App() {
         <Route
           path="/stories/:id"
           element={
-            <ProtectedRoute>
+            <ProtectedRoute requireRole="admin">
               <StoryView />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/guestbook"
-          element={
-            <ProtectedRoute>
-              <Guestbook />
             </ProtectedRoute>
           }
         />
         <Route
           path="/timeline"
           element={
-            <ProtectedRoute>
+            <ProtectedRoute requireRole="admin">
               <Timeline />
             </ProtectedRoute>
           }
@@ -95,7 +87,7 @@ function App() {
         <Route
           path="/gallery"
           element={
-            <ProtectedRoute>
+            <ProtectedRoute requireRole="admin">
               <Gallery />
             </ProtectedRoute>
           }
@@ -103,7 +95,7 @@ function App() {
         <Route
           path="/playlist"
           element={
-            <ProtectedRoute>
+            <ProtectedRoute requireRole="admin">
               <Playlist />
             </ProtectedRoute>
           }
@@ -113,6 +105,16 @@ function App() {
           element={
             <ProtectedRoute requireRole="admin">
               <Admin />
+            </ProtectedRoute>
+          }
+        />
+
+        {/* Guestbook - accessible to all authenticated users (including guests) */}
+        <Route
+          path="/guestbook"
+          element={
+            <ProtectedRoute>
+              <Guestbook />
             </ProtectedRoute>
           }
         />

@@ -29,7 +29,12 @@ const Login = () => {
 
     if (result.valid) {
       login(result.username, result.role);
-      navigate('/');
+      // Navigate based on role
+      if (result.role === 'guest') {
+        navigate('/guestbook');
+      } else {
+        navigate('/');
+      }
     } else {
       setError('שם משתמש או סיסמה שגויים');
     }
