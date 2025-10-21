@@ -137,6 +137,12 @@ const useGreetings = create((set, get) => {
       return greetings.find((g) => g.id === id);
     },
 
+    // Get all greetings
+    getAll: () => {
+      const { greetings } = get();
+      return greetings;
+    },
+
     // Count by status
     countByStatus: () => {
       const { greetings } = get();

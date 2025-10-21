@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { CheckCircle, XCircle, Trash2, User, Calendar, Image as ImageIcon } from 'lucide-react';
 import { toast } from 'react-hot-toast';
@@ -10,9 +10,14 @@ import Badge from '../ui/Badge';
 import Modal from '../ui/Modal';
 
 const GreetingsPanel = () => {
-  const { getAll, countByStatus, approveGreeting, rejectGreeting, deleteGreeting } = useGreetings();
+  const { getAll, countByStatus, approveGreeting, rejectGreeting, deleteGreeting, loadAllGreetings } = useGreetings();
   const [filter, setFilter] = useState('all');
   const [selectedGreeting, setSelectedGreeting] = useState(null);
+  
+  // Load all greetings on component mount
+  useEffect(() => {
+    loadAllGreetings();
+  }, [loadAllGreetings]);
   
   const allGreetings = getAll();
   const stats = countByStatus();
