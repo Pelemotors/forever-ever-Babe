@@ -12,13 +12,13 @@ const Header = () => {
   const location = useLocation();
 
   const navItems = [
-    { path: '/', label: 'בית', roles: ['admin', 'ira', 'guest'] },
-    { path: '/story', label: 'הסיפור שלנו', roles: ['admin', 'ira', 'guest'] },
-    { path: '/stories', label: 'הסיפורים שלנו', roles: ['admin', 'ira', 'guest'] },
+    { path: '/', label: 'בית', roles: ['admin', 'ira'] },
+    { path: '/story', label: 'הסיפור שלנו', roles: ['admin', 'ira'] },
+    { path: '/stories', label: 'הסיפורים שלנו', roles: ['admin', 'ira'] },
     { path: '/guestbook', label: 'ספר ברכות', roles: ['admin', 'ira', 'guest'] },
-    { path: '/timeline', label: 'ציר זמן', roles: ['admin', 'ira', 'guest'] },
-    { path: '/gallery', label: 'גלריה', roles: ['admin', 'ira', 'guest'] },
-    { path: '/playlist', label: 'פלייליסט', roles: ['admin', 'ira', 'guest'] },
+    { path: '/timeline', label: 'ציר זמן', roles: ['admin', 'ira'] },
+    { path: '/gallery', label: 'גלריה', roles: ['admin', 'ira'] },
+    { path: '/playlist', label: 'פלייליסט', roles: ['admin', 'ira'] },
     { path: '/admin', label: 'ניהול', roles: ['admin'] },
   ];
 
@@ -38,7 +38,7 @@ const Header = () => {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-20">
           {/* Logo & Tagline */}
-          <Link to="/" className="flex items-center gap-3">
+          <Link to={role === 'guest' ? '/guestbook' : '/'} className="flex items-center gap-3">
             <motion.div
               whileHover={{ scale: 1.1 }}
               className="flex items-center gap-2"

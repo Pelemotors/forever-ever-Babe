@@ -9,17 +9,6 @@ export const validateCredentials = (username, password) => {
   const guestUsername = import.meta.env.VITE_GUEST_USERNAME;
   const guestPassword = import.meta.env.VITE_GUEST_PASSWORD;
 
-  // Debug: log the values to see what's being compared
-  console.log('Auth Debug:', {
-    adminUsername,
-    adminPassword,
-    iraUsername,
-    iraPassword,
-    guestUsername,
-    guestPassword,
-    inputUsername: username,
-    inputPassword: password
-  });
 
   // Check admin
   if (username === adminUsername && password === adminPassword) {
