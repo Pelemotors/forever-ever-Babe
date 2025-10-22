@@ -59,19 +59,19 @@ const Home = () => {
 
   return (
     <Layout>
+      {/* Background Image for entire page */}
+      <div className="absolute inset-0 z-0 min-h-screen">
+        {hero?.image && (
+          <img
+            src={hero.image}
+            alt={hero.image_alt || 'Hero'}
+              className="w-full h-full object-cover object-[center_10%] opacity-25"
+          />
+        )}
+      </div>
+
       {/* Hero Section */}
-      <section className="relative min-h-[85vh] flex items-center justify-center overflow-hidden">
-        {/* Background Image (placeholder for now) */}
-        <div className="absolute inset-0 z-0">
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-romantic-cream/50 to-romantic-cream z-10" />
-          {hero?.image && (
-            <img
-              src={hero.image}
-              alt={hero.image_alt || 'Hero'}
-              className="w-full h-full object-cover opacity-30"
-            />
-          )}
-        </div>
+      <section className="relative min-h-[85vh] flex items-center justify-center overflow-hidden z-10">
 
         {/* Content */}
         <div className="relative z-20 container mx-auto px-4 text-center">
@@ -135,7 +135,7 @@ const Home = () => {
             >
               <Heart 
                 size={60} 
-                className="mx-auto text-romantic-burgundy opacity-30" 
+                className="mx-auto text-romantic-burgundy opacity-100" 
                 fill="currentColor" 
               />
             </motion.div>
@@ -144,8 +144,8 @@ const Home = () => {
       </section>
 
       {/* Quick Links Section */}
-      <section className="py-20 px-4">
-        <div className="container mx-auto max-w-6xl">
+      <section className="py-20 px-4 relative z-10">
+        <div className="container mx-auto max-w-6xl rounded-3xl p-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}

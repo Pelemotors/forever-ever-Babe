@@ -13,6 +13,15 @@ const Guestbook = () => {
 
   return (
     <Layout>
+      {/* Background Image for entire page */}
+      <div className="absolute inset-0 z-0 min-h-screen">
+        <img
+          src="/media/wedding_couple_ceremony.jpg"
+          alt="גל ואירה בטקס החתונה"
+          className="w-full h-full object-cover object-center opacity-20"
+        />
+      </div>
+
       <Toaster 
         position="top-center"
         toastOptions={{
@@ -27,7 +36,7 @@ const Guestbook = () => {
         }}
       />
 
-      <div className="container mx-auto px-4 py-12 max-w-6xl">
+      <div className="container mx-auto px-4 py-12 max-w-6xl relative z-10">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}

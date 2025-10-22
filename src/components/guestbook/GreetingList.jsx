@@ -11,8 +11,8 @@ const GreetingList = () => {
 
   // Load approved greetings on component mount
   useEffect(() => {
-    // Only load from Supabase if user is admin (has Supabase auth)
-    if (role === 'admin') {
+    // Load from Supabase for both admin and ira
+    if (role === 'admin' || role === 'ira') {
       loadApprovedGreetings();
     }
   }, [loadApprovedGreetings, role]);

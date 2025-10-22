@@ -8,7 +8,16 @@ import timelineData from '../content/timeline.json';
 const Timeline = () => {
   return (
     <Layout>
-      <div className="container mx-auto px-4 py-12 max-w-4xl">
+      {/* Background Image for entire page */}
+      <div className="absolute inset-0 z-0 min-h-screen">
+        <img
+          src="/media/wedding_couple_romantic_2.jpg"
+          alt="תמונה רומנטית של הזוג בחתונה"
+          className="w-full h-full object-cover object-center opacity-20"
+        />
+      </div>
+
+      <div className="container mx-auto px-4 py-12 max-w-4xl relative z-10">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}

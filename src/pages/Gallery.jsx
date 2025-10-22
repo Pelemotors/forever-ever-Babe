@@ -43,7 +43,16 @@ const Gallery = () => {
 
   return (
     <Layout>
-      <div className="container mx-auto px-4 py-12">
+      {/* Background Image for entire page */}
+      <div className="absolute inset-0 z-0 min-h-screen">
+        <img
+          src="/media/wedding_couple_embrace.jpg"
+          alt="גל ואירה מתחבקים בחתונה"
+          className="w-full h-full object-cover object-center opacity-20"
+        />
+      </div>
+
+      <div className="container mx-auto px-4 py-12 relative z-10">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -83,17 +92,6 @@ const Gallery = () => {
           />
         </motion.div>
 
-        {/* Note about placeholders */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.5 }}
-          className="text-center mt-12 p-6 bg-white/50 rounded-2xl max-w-2xl mx-auto"
-        >
-          <p className="text-romantic-burgundy/60 text-sm">
-            💡 כרגע מוצגות תמונות דמו. החליפו אותן בתמונות האמיתיות שלכם בתיקייה public/media
-          </p>
-        </motion.div>
       </div>
 
       {/* Image Modal */}

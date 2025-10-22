@@ -1,75 +1,93 @@
 [
   {
     "id": "1",
-    "url": "https://placehold.co/600x800/FFE5E5/8B4556?text=אנחנו+1",
-    "alt": "תמונה של גל ואירה",
-    "tags": ["אנחנו"]
+    "url": "/media/wedding_couple_intimate.jpg",
+    "alt": "תמונה אינטימית של גל ואירה בחתונה",
+    "tags": ["אנחנו", "חתונה"]
   },
   {
     "id": "2",
-    "url": "https://placehold.co/800x600/FFF8F0/8B4556?text=אנחנו+2",
-    "alt": "רגע רומנטי",
-    "tags": ["אנחנו"]
+    "url": "/media/wedding_couple_romantic_1.jpg",
+    "alt": "תמונה רומנטית של הזוג בחתונה",
+    "tags": ["אנחנו", "חתונה"]
   },
   {
     "id": "3",
-    "url": "https://placehold.co/600x800/FFB6C1/8B4556?text=פלא+1",
-    "alt": "פלא",
-    "tags": ["פלא"]
+    "url": "/media/wedding_couple_romantic_2.jpg",
+    "alt": "תמונה רומנטית נוספת של הזוג בחתונה",
+    "tags": ["אנחנו", "חתונה"]
   },
   {
     "id": "4",
-    "url": "https://placehold.co/800x600/E8DDD3/8B4556?text=פלא+2",
-    "alt": "פלא משחק",
-    "tags": ["פלא"]
+    "url": "/media/wedding_couple_smile.jpg",
+    "alt": "גל ואירה מחייכים בחתונה",
+    "tags": ["אנחנו", "חתונה"]
   },
   {
     "id": "5",
-    "url": "https://placehold.co/600x800/FFE5E5/8B4556?text=מיראל+1",
-    "alt": "מיראל",
-    "tags": ["מיראל"]
+    "url": "/media/wedding_couple_kiss.jpg",
+    "alt": "גל ואירה מתנשקים בחתונה",
+    "tags": ["אנחנו", "חתונה"]
   },
   {
     "id": "6",
-    "url": "https://placehold.co/800x600/FFF8F0/8B4556?text=מיראל+2",
+    "url": "/media/wedding_couple_embrace.jpg",
+    "alt": "גל ואירה מתחבקים בחתונה",
+    "tags": ["אנחנו", "חתונה"]
+  },
+  {
+    "id": "7",
+    "url": "/media/wedding_couple_ceremony.jpg",
+    "alt": "גל ואירה בטקס החתונה",
+    "tags": ["אנחנו", "חתונה"]
+  },
+  {
+    "id": "8",
+    "url": "/media/mirelle just born.jpg",
+    "alt": "מיראל רגע אחרי הלידה",
+    "tags": ["מיראל", "לידה"]
+  },
+  {
+    "id": "9",
+    "url": "/media/mirelle one week.jpg",
+    "alt": "מיראל בגיל שבוע",
+    "tags": ["מיראל", "תינוקות"]
+  },
+  {
+    "id": "10",
+    "url": "/media/mirelle one month.jpg",
+    "alt": "מיראל בגיל חודש",
+    "tags": ["מיראל", "תינוקות"]
+  },
+  {
+    "id": "11",
+    "url": "/media/mirelle general.jpg",
+    "alt": "מיראל - תמונה כללית",
+    "tags": ["מיראל"]
+  },
+  {
+    "id": "12",
+    "url": "/media/mirelle general smile.jpg",
     "alt": "מיראל מחייכת",
     "tags": ["מיראל"]
   },
   {
-    "id": "7",
-    "url": "https://placehold.co/600x800/FFB6C1/8B4556?text=משפחה+1",
-    "alt": "כל המשפחה",
-    "tags": ["אנחנו", "פלא", "מיראל"]
+    "id": "13",
+    "url": "/media/mirelle and DADDY.jpg",
+    "alt": "מיראל ואבא",
+    "tags": ["מיראל", "משפחה"]
   },
   {
-    "id": "8",
-    "url": "https://placehold.co/800x600/E8DDD3/8B4556?text=משפחה+2",
-    "alt": "רגע משפחתי",
-    "tags": ["אנחנו", "פלא", "מיראל"]
+    "id": "14",
+    "url": "/media/Ira pele and mirelle.jpg",
+    "alt": "אירה, פלא ומיראל",
+    "tags": ["משפחה", "אירה", "פלא", "מיראל"]
   },
   {
-    "id": "9",
-    "url": "https://placehold.co/600x800/FFE5E5/8B4556?text=יום+יום+1",
-    "alt": "רגעי יום יום",
-    "tags": ["יום-יום"]
-  },
-  {
-    "id": "10",
-    "url": "https://placehold.co/800x600/FFF8F0/8B4556?text=יום+יום+2",
-    "alt": "רגע יומיומי",
-    "tags": ["יום-יום"]
-  },
-  {
-    "id": "11",
-    "url": "https://placehold.co/600x800/FFB6C1/8B4556?text=טוסטים+וסלט",
-    "alt": "טוסטים וסלט",
-    "tags": ["יום-יום", "אנחנו"]
-  },
-  {
-    "id": "12",
-    "url": "https://placehold.co/800x600/E8DDD3/8B4556?text=קפה+בבוקר",
-    "alt": "קפה בבוקר",
-    "tags": ["יום-יום", "אנחנו"]
+    "id": "15",
+    "url": "/media/a day after mirelle was born MOM AND DAD.jpg",
+    "alt": "אמא ואבא יום אחרי לידת מיראל",
+    "tags": ["אנחנו", "מיראל", "לידה"]
   }
 ]
 

@@ -4,49 +4,73 @@
     "date": "2019-01-01",
     "title": "הכרות ראשונה",
     "description": "היום שבו הכרנו - דרך העבודה. עדיין לא ידענו מה הגורל מכין לנו.",
-    "icon": "heart"
+    "icon": "heart",
+    "image": "/media/wedding_couple_smile.jpg"
+  },
+  {
+    "id": "started dating",
+    "date": "2022-05-18",
+    "title": " התחלנו לצאת",
+    "description": "הפעמים הראשונות היו מוזרות קצת, אבל מאז כל פעם מרגישה כמו פעם ראשונה",
+    "icon": "heart",
+    "image": "/media/wedding_couple_romantic_1.jpg"
   },
   {
     "id": "first-vacation",
-    "date": "2020-07-15",
+    "date": "2025-04-15",
     "title": "החופשה הראשונה",
     "description": "גרמניה - מורכב, מאתגר, אבל בדיוק מה שהיינו צריכים כדי להבין שאנחנו לנצח.",
-    "icon": "plane"
+    "icon": "plane",
+    "image": "/media/wedding_couple_romantic_2.jpg"
   },
   {
     "id": "proposal",
-    "date": "2020-07-22",
+    "date": "2025-04-28",
     "title": "ההצעה",
     "description": "שבוע אחרי החופשה. לא יכולתי לחכות יותר. ידעתי שאת זו שלי.",
-    "icon": "ring"
+    "icon": "ring",
+    "image": "/media/wedding_couple_kiss.jpg"
   },
   {
     "id": "wedding",
-    "date": "2021-03-10",
+    "date": "2025-03-14",
     "title": "החתונה",
     "description": "היום שבו הפכנו רשמית למשפחה. ההתחלה של For Ever & Ever Babe.",
-    "icon": "users"
+    "icon": "users",
+    "image": "/media/wedding_couple_ceremony.jpg"
   },
-  {
-    "id": "pele-born",
-    "date": "2022-05-18",
-    "title": "פלא נולד",
-    "description": "הפלא הראשון שלנו הגיע לעולם. החיים השתנו לנצח.",
-    "icon": "baby"
-  },
+  
   {
     "id": "miral-born",
-    "date": "2024-01-25",
+    "date": "2025-08-03",
     "title": "מיראל נולדה",
     "description": "המנוע החדש של אושר ומתיקות בבית. המשפחה שלנו שלמה.",
-    "icon": "baby"
+    "icon": "baby",
+    "image": "/media/mirelle just born.jpg"
+  },
+  {
+    "id": "miral-one-week",
+    "date": "2025-08-10",
+    "title": "מיראל - שבוע",
+    "description": "השבוע הראשון של מיראל איתנו. כל יום גילוי חדש.",
+    "icon": "baby",
+    "image": "/media/mirelle one week.jpg"
+  },
+  {
+    "id": "miral-one-month",
+    "date": "2025-09-03",
+    "title": "מיראל - חודש",
+    "description": "חודש של אושר עם מיראל. המשפחה שלנו גדלה ומתחזקת.",
+    "icon": "baby",
+    "image": "/media/mirelle one month.jpg"
   },
   {
     "id": "today",
-    "date": "2025-01-20",
+    "date": "2025-10-24",
     "title": "היום - 29!",
     "description": "יום ההולדת שלך. רגע לעצור, להסתכל אחורה, ולהגיד תודה על כל רגע.",
-    "icon": "cake"
+    "icon": "cake",
+    "image": "/media/Ira pele and mirelle.jpg"
   }
 ]
 

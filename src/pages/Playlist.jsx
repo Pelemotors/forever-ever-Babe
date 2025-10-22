@@ -9,7 +9,16 @@ import playlistData from '../content/playlist.json';
 const Playlist = () => {
   return (
     <Layout>
-      <div className="container mx-auto px-4 py-12 max-w-5xl">
+      {/* Background Image for entire page */}
+      <div className="absolute inset-0 z-0 min-h-screen">
+        <img
+          src="/media/wedding_couple_kiss.jpg"
+          alt="גל ואירה מתנשקים בחתונה"
+          className="w-full h-full object-cover object-center opacity-20"
+        />
+      </div>
+
+      <div className="container mx-auto px-4 py-12 max-w-5xl relative z-10">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
