@@ -113,7 +113,7 @@ function App() {
         <Route
           path="/guestbook"
           element={
-            <ProtectedRoute>
+            <ProtectedRoute allowGuest={true}>
               <Guestbook />
             </ProtectedRoute>
           }
