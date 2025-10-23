@@ -35,21 +35,24 @@ const GreetingCard = ({ greeting, index = 0 }) => {
         </p>
 
         {/* Media */}
-        {greeting.mediaUrl && (
+        {(greeting.mediaUrl || greeting.media_url) && (
           <div className="mt-4 rounded-xl overflow-hidden">
-            {greeting.mediaUrl.includes('video') || greeting.mediaUrl.endsWith('.mp4') ? (
-              <video 
-                src={greeting.mediaUrl} 
-                controls 
-                className="w-full max-h-96 object-cover"
-              />
-            ) : (
-              <img 
-                src={greeting.mediaUrl} 
-                alt="תמונה מצורפת" 
-                className="w-full max-h-96 object-cover"
-              />
-            )}
+            {(() => {
+              const mediaUrl = greeting.mediaUrl || greeting.media_url;
+              return mediaUrl.includes('video') || mediaUrl.endsWith('.mp4') ? (
+                <video 
+                  src={mediaUrl} 
+                  controls 
+                  className="w-full max-h-96 object-cover"
+                />
+              ) : (
+                <img 
+                  src={mediaUrl} 
+                  alt="תמונה מצורפת" 
+                  className="w-full max-h-96 object-cover"
+                />
+              );
+            })()}
           </div>
         )}
       </Card>

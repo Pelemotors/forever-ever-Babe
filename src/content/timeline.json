@@ -3,33 +3,33 @@
     "id": "meeting",
     "date": "2019-01-01",
     "title": "הכרות ראשונה",
-    "description": "היום שבו הכרנו - דרך העבודה. עדיין לא ידענו מה הגורל מכין לנו.",
+    "description": "לא נתפס שרוב הימים שלנו היו דווקא בחברת סוחרי רכב, ומכירת רכבים בקצב גבוה.\nלא העזתי לדמיין מה הגורל מבשל לנו",
     "icon": "heart",
-    "image": "/media/wedding_couple_smile.jpg"
+    "image": "/media/get to know at work.jpg"
   },
   {
     "id": "started dating",
     "date": "2022-05-18",
     "title": " התחלנו לצאת",
-    "description": "הפעמים הראשונות היו מוזרות קצת, אבל מאז כל פעם מרגישה כמו פעם ראשונה",
+    "description": "הפעמים הראשונות היו מוזרות קצת, אבל מאז , הפכנו למשפחה, וכל פעם מרגישה כמו הפעם ראשונה",
     "icon": "heart",
-    "image": "/media/wedding_couple_romantic_1.jpg"
+    "image": "/media/start dating5.jpg"
   },
   {
     "id": "first-vacation",
     "date": "2025-04-15",
     "title": "החופשה הראשונה",
-    "description": "גרמניה - מורכב, מאתגר, אבל בדיוק מה שהיינו צריכים כדי להבין שאנחנו לנצח.",
+    "description": "גרמניה - מורכב, מאתגר, אבל בדיוק מה שהיינו צריכים כדי להבין שאנחנו זה לנצח.",
     "icon": "plane",
-    "image": "/media/wedding_couple_romantic_2.jpg"
+    "image": "/media/firs vacation.jpg"
   },
   {
     "id": "proposal",
     "date": "2025-04-28",
     "title": "ההצעה",
-    "description": "שבוע אחרי החופשה. לא יכולתי לחכות יותר. ידעתי שאת זו שלי.",
+    "description": "שבוע אחרי החופשה. לא יכולתי לחכות יותר. ידעתי שאני לא יכול בלעדייך.",
     "icon": "ring",
-    "image": "/media/wedding_couple_kiss.jpg"
+    "image": "/media/start dating6.jpg"
   },
   {
     "id": "wedding",

@@ -43,7 +43,7 @@ const TimelineItem = ({ item, index, isLast }) => {
             <h3 className="text-2xl font-bold text-romantic-burgundy mb-3">
               {item.title}
             </h3>
-            <p className="text-romantic-burgundy/80 leading-relaxed mb-4">
+            <p className="text-romantic-burgundy/80 leading-relaxed mb-4 whitespace-pre-line text-center">
               {item.description}
             </p>
             {item.image && (
