@@ -16,6 +16,7 @@ import Admin from './pages/Admin'
 
 // Components
 import ProtectedRoute from './components/auth/ProtectedRoute'
+import FloatingResearchNudge from './components/addons/FloatingResearchNudge'
 
 function App() {
   const { isAuthenticated } = useSession()
@@ -122,6 +123,9 @@ function App() {
         {/* 404 */}
         <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>
+      
+      {/* Research Cards Popup - רק לאירה */}
+      <FloatingResearchNudge />
     </Router>
   )
 }
