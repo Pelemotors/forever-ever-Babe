@@ -17,12 +17,13 @@ const Header = () => {
     { path: '/stories', label: 'הסיפורים שלנו', roles: ['admin', 'ira'] },
     { path: '/guestbook', label: 'ספר ברכות', roles: ['admin', 'ira', 'guest'] },
     { path: '/timeline', label: 'ציר זמן', roles: ['admin', 'ira'] },
+    { path: '/memories', label: 'ספר הזיכרונות', roles: ['admin', 'ira'] },
     { path: '/gallery', label: 'גלריה', roles: ['admin', 'ira'] },
     { path: '/playlist', label: 'פלייליסט', roles: ['admin', 'ira'] },
     { path: '/admin', label: 'ניהול', roles: ['admin'] },
   ];
 
-  const visibleNavItems = navItems.filter(item => 
+  const visibleNavItems = navItems.filter(item =>
     !item.roles || item.roles.includes(role)
   );
 
@@ -45,7 +46,7 @@ const Header = () => {
             >
               <Heart className="text-romantic-burgundy" size={28} fill="currentColor" />
               <span className="text-2xl font-bold text-gradient-romantic hidden sm:inline">
-                Happy 29
+                הסיפור שלנו
               </span>
             </motion.div>
             <Badge variant="romantic" size="sm" className="hidden md:inline-flex">
@@ -124,7 +125,7 @@ const Header = () => {
                   {item.label}
                 </Link>
               ))}
-              
+
               {isAuthenticated && (
                 <div className="border-t border-romantic-burgundy/10 pt-4 mt-2">
                   {user && (

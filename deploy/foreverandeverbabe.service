@@ -1,0 +1,23 @@
+[Unit]
+Description=For Ever And Ever Babe private memory book
+After=network.target
+
+[Service]
+Type=simple
+User=foreverbabe
+Group=foreverbabe
+WorkingDirectory=/srv/foreverandeverbabe/app
+Environment=NODE_ENV=production
+Environment=PORT=3897
+Environment=MEMORY_DATA_DIR=/srv/foreverandeverbabe/data
+ExecStart=/usr/bin/node /srv/foreverandeverbabe/app/server/index.mjs
+Restart=on-failure
+RestartSec=5
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+ReadWritePaths=/srv/foreverandeverbabe/data
+
+[Install]
+WantedBy=multi-user.target

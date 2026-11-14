@@ -1,0 +1,6 @@
+[Unit]
+Description=Backup private memory book database and uploads
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/sbin/foreverandeverbabe-backup

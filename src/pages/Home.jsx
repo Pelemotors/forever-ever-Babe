@@ -14,6 +14,13 @@ const Home = () => {
 
   const quickLinks = [
     {
+      to: '/memories',
+      icon: BookOpen,
+      title: 'ספר הזיכרונות החי',
+      description: 'לשמור רגע חדש, עם סיפור ותמונה',
+      color: 'from-romantic-burgundy to-romantic-gold',
+    },
+    {
       to: '/story',
       icon: Heart,
       title: 'הסיפור שלנו',
@@ -120,9 +127,9 @@ const Home = () => {
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 1.1, type: 'spring' }}
             >
-              <Link to="/story">
+              <Link to="/memories">
                 <Button variant="primary" size="lg" className="text-xl px-10 py-5">
-                  {hero?.cta || 'נכנסים לחגוג'}
+                  לפתוח את ספר הזיכרונות
                 </Button>
               </Link>
             </motion.div>
@@ -133,10 +140,10 @@ const Home = () => {
               transition={{ duration: 3, repeat: Infinity }}
               className="mt-12"
             >
-              <Heart 
-                size={60} 
-                className="mx-auto text-romantic-burgundy opacity-100" 
-                fill="currentColor" 
+              <Heart
+                size={60}
+                className="mx-auto text-romantic-burgundy opacity-100"
+                fill="currentColor"
               />
             </motion.div>
           </motion.div>

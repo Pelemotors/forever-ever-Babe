@@ -16,7 +16,7 @@ const Footer = () => {
 
           {/* Message */}
           <p className="text-romantic-burgundy/70 text-center text-sm">
-            נבנה באהבה ליום ההולדת ה-29 של אירה 💕
+            הסיפור שלנו ממשיך להיכתב, רגע אחרי רגע 💕
           </p>
 
           {/* Copyright */}
