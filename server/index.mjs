@@ -55,7 +55,7 @@ const getSession = req => {
 }
 const loginAttempts = new Map()
 const types = { '.html':'text/html; charset=utf-8', '.js':'text/javascript; charset=utf-8', '.css':'text/css; charset=utf-8', '.jpg':'image/jpeg', '.png':'image/png', '.webp':'image/webp', '.heic':'image/heic', '.heif':'image/heif', '.mp4':'video/mp4', '.webm':'video/webm', '.svg':'image/svg+xml', '.ico':'image/x-icon' }
-const serve = async (res, filename) => { try { const bytes=await readFile(filename); res.writeHead(200, { 'Content-Type': types[path.extname(filename)] || 'application/octet-stream', 'Cache-Control':'private, max-age=3600', 'X-Content-Type-Options':'nosniff' }); res.end(bytes) } catch { respond(res, 404, { error:'not_found' }) } }
+const serve = async (res, filename) => { try { const bytes=await readFile(filename); res.writeHead(200, { 'Content-Type': types[path.extname(filename)] || 'application/octet-stream', 'Cache-Control':path.extname(filename)==='.html'?'no-store':'private, max-age=3600', 'X-Content-Type-Options':'nosniff' }); res.end(bytes) } catch { respond(res, 404, { error:'not_found' }) } }
 const serveMedia = (res, filename) => {
   const asset = db.prepare('SELECT mime_type, bytes FROM media_assets WHERE path=?').get(filename)
   if (!asset) return respond(res, 404, { error: 'media_not_found' })

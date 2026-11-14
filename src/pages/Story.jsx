@@ -18,7 +18,7 @@ const Story = () => {
       {/* Background Image for entire page */}
       <div className="absolute inset-0 z-0 min-h-screen">
         <img
-          src="/media/wedding_couple_romantic_1.jpg"
+          src="/media/wedding_couple_romantic_1.jpg?v=20261114"
           alt="תמונה רומנטית של הזוג בחתונה"
           className="w-full h-full object-cover object-center opacity-20"
         />

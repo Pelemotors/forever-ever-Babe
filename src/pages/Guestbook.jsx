@@ -16,7 +16,7 @@ const Guestbook = () => {
       {/* Background Image for entire page */}
       <div className="absolute inset-0 z-0 min-h-screen">
         <img
-          src="/media/wedding_couple_ceremony.jpg"
+          src="/media/wedding_couple_ceremony.jpg?v=20261114"
           alt="גל ואירה בטקס החתונה"
           className="w-full h-full object-cover object-center opacity-20"
         />

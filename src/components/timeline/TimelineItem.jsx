@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { Heart, Plane, Users, Baby, Cake, Circle } from 'lucide-react';
 import { formatDate } from '../../lib/time';
+import { mediaUrl } from '../../lib/media';
 import Card from '../ui/Card';
 
 const TimelineItem = ({ item, index, isLast }) => {
@@ -49,7 +50,7 @@ const TimelineItem = ({ item, index, isLast }) => {
             {item.image && (
               <div className="mt-4">
                 <img
-                  src={item.image}
+                  src={mediaUrl(item.image)}
                   alt={item.title}
                   className="w-full h-64 object-contain rounded-lg shadow-lg bg-white/20"
                 />

@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { Heart, BookOpen, Images, Music, Clock, MessageSquare } from 'lucide-react';
 import useContent from '../state/useContent';
+import { mediaUrl } from '../lib/media';
 import Layout from '../components/layout/Layout';
 import Button from '../components/ui/Button';
 import Card from '../components/ui/Card';
@@ -70,7 +71,7 @@ const Home = () => {
       <div className="absolute inset-0 z-0 min-h-screen">
         {hero?.image && (
           <img
-            src={hero.image}
+            src={mediaUrl(hero.image)}
             alt={hero.image_alt || 'Hero'}
               className="w-full h-full object-cover object-[center_10%] opacity-25"
           />

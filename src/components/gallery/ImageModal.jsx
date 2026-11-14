@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, ChevronRight, ChevronLeft } from 'lucide-react';
+import { mediaUrl } from '../../lib/media';
 
 const ImageModal = ({ image, isOpen, onClose, onNext, onPrev, hasNext, hasPrev }) => {
   // Handle keyboard navigation
@@ -84,7 +85,7 @@ const ImageModal = ({ image, isOpen, onClose, onNext, onPrev, hasNext, hasPrev }
               onClick={(e) => e.stopPropagation()}
             >
               <img
-                src={image.url}
+                src={mediaUrl(image.url)}
                 alt={image.alt}
                 className="w-full h-full object-contain rounded-lg"
               />

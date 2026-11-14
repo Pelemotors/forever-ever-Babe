@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { Heart, MapPin, Plus, ImagePlus } from 'lucide-react'
 import Layout from '../components/layout/Layout'
 import timeline from '../content/timeline.json'
+import { mediaUrl } from '../lib/media'
 
 const dateLabel = date => new Intl.DateTimeFormat('he-IL', { day: 'numeric', month: 'long', year: 'numeric' }).format(new Date(`${date}T12:00:00`))
 
@@ -72,7 +73,7 @@ export default function MemoryBook() {
       <section className="memory-timeline"><div className="memory-section-title"><span className="memory-eyebrow">הפרקים שלנו</span><h2>מההתחלה ועד הרגע הבא</h2><p>{items.length} רגעים שכדאי לזכור</p></div>
         <div className="memory-list">{items.map((item, index) => <article className="memory-card" key={item.id}>
           <div className="memory-number">{String(items.length - index).padStart(2, '0')}</div>
-          <div className="memory-image">{item.image ? item.media_type?.startsWith('video/') ? <video controls preload="metadata" src={item.image} /> : <img loading="lazy" src={item.image} alt={item.title} /> : <div className="memory-image-empty"><Heart size={42} /></div>}</div>
+          <div className="memory-image">{item.image ? item.media_type?.startsWith('video/') ? <video controls preload="metadata" src={item.image} /> : <img loading="lazy" src={mediaUrl(item.image)} alt={item.title} /> : <div className="memory-image-empty"><Heart size={42} /></div>}</div>
           <div className="memory-copy"><span className="memory-eyebrow">{dateLabel(item.date)}</span><h3>{item.title}</h3>{item.place && <div className="memory-place"><MapPin size={15} />{item.place}</div>}<p>{item.description}</p><span className="memory-signature">{item.custom ? `נשמר על ידי ${item.created_by === 'ira' ? 'אירה' : 'גל'} ♥` : 'מתוך הסיפור שלנו ♥'}</span></div>
         </article>)}</div>
       </section>

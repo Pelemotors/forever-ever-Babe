@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { mediaUrl } from '../../lib/media';
 
 const GalleryGrid = ({ images, onImageClick }) => {
   if (images.length === 0) {
@@ -23,7 +24,7 @@ const GalleryGrid = ({ images, onImageClick }) => {
           onClick={() => onImageClick(image, index)}
         >
           <img
-            src={image.url}
+            src={mediaUrl(image.url)}
             alt={image.alt}
             className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
             loading="lazy"
