@@ -1,7 +1,7 @@
 import { createServer } from 'node:http'
 import { DatabaseSync } from 'node:sqlite'
 import { createHash, randomBytes, randomUUID, scryptSync, timingSafeEqual } from 'node:crypto'
-import { mkdir, readFile, writeFile, stat } from 'node:fs/promises'
+import { mkdir, readFile, readdir, stat } from 'node:fs/promises'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 
@@ -13,6 +13,28 @@ db.exec(`CREATE TABLE IF NOT EXISTS users (name TEXT PRIMARY KEY, salt TEXT NOT 
 CREATE TABLE IF NOT EXISTS sessions (token_hash TEXT PRIMARY KEY, name TEXT NOT NULL, expires INTEGER NOT NULL);
 CREATE TABLE IF NOT EXISTS memories (id TEXT PRIMARY KEY, date TEXT NOT NULL, title TEXT NOT NULL, story TEXT NOT NULL, place TEXT NOT NULL, media TEXT, media_type TEXT, created_by TEXT NOT NULL, created_at TEXT NOT NULL);`)
 db.exec(`CREATE TABLE IF NOT EXISTS greetings (id TEXT PRIMARY KEY, full_name TEXT NOT NULL, email TEXT, content TEXT NOT NULL, post_id TEXT, status TEXT NOT NULL DEFAULT 'pending', created_at TEXT NOT NULL, approved_at TEXT, approved_by TEXT);`)
+db.exec('CREATE TABLE IF NOT EXISTS media_assets (path TEXT PRIMARY KEY, mime_type TEXT NOT NULL, sha256 TEXT NOT NULL, bytes BLOB NOT NULL)')
+
+if (process.argv[2] === 'import-media') {
+  const directory = process.argv[3]
+  const group = process.argv[4]
+  if (!directory || !['media', 'uploads'].includes(group)) throw new Error('Expected import-media DIRECTORY media|uploads')
+  const entries = await readdir(directory, { withFileTypes: true })
+  let imported = 0
+  const insert = db.prepare('INSERT INTO media_assets (path,mime_type,sha256,bytes) VALUES (?,?,?,?) ON CONFLICT(path) DO UPDATE SET mime_type=excluded.mime_type, sha256=excluded.sha256, bytes=excluded.bytes WHERE media_assets.sha256<>excluded.sha256')
+  for (const entry of entries) {
+    if (!entry.isFile()) continue
+    const ext = path.extname(entry.name).toLowerCase()
+    const mime = { '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.png': 'image/png', '.webp': 'image/webp', '.heic': 'image/heic', '.heif': 'image/heif', '.mp4': 'video/mp4', '.webm': 'video/webm' }[ext]
+    if (!mime) continue
+    const bytes = await readFile(path.join(directory, entry.name))
+    insert.run(`/${group}/${entry.name}`, mime, createHash('sha256').update(bytes).digest('hex'), bytes)
+    imported++
+  }
+  if (!imported && group === 'media') throw new Error('No original media found')
+  console.log(`Imported ${imported} ${group} assets`)
+  process.exit(0)
+}
 
 if (process.argv[2] === 'set-password') {
   const [name, password] = process.argv.slice(3)
@@ -34,12 +56,19 @@ const getSession = req => {
 const loginAttempts = new Map()
 const types = { '.html':'text/html; charset=utf-8', '.js':'text/javascript; charset=utf-8', '.css':'text/css; charset=utf-8', '.jpg':'image/jpeg', '.png':'image/png', '.webp':'image/webp', '.heic':'image/heic', '.heif':'image/heif', '.mp4':'video/mp4', '.webm':'video/webm', '.svg':'image/svg+xml', '.ico':'image/x-icon' }
 const serve = async (res, filename) => { try { const bytes=await readFile(filename); res.writeHead(200, { 'Content-Type': types[path.extname(filename)] || 'application/octet-stream', 'Cache-Control':'private, max-age=3600', 'X-Content-Type-Options':'nosniff' }); res.end(bytes) } catch { respond(res, 404, { error:'not_found' }) } }
+const serveMedia = (res, filename) => {
+  const asset = db.prepare('SELECT mime_type, bytes FROM media_assets WHERE path=?').get(filename)
+  if (!asset) return respond(res, 404, { error: 'media_not_found' })
+  res.writeHead(200, { 'Content-Type': asset.mime_type, 'Content-Length': asset.bytes.length, 'Cache-Control': 'private, max-age=3600', 'X-Content-Type-Options': 'nosniff' })
+  res.end(asset.bytes)
+}
 
 createServer(async (req, res) => {
   res.setHeader('X-Robots-Tag', 'noindex, nofollow')
   res.setHeader('X-Frame-Options', 'DENY')
   const url = new URL(req.url, 'http://localhost')
   try {
+    const pathname = decodeURIComponent(url.pathname)
     if (!['GET', 'HEAD'].includes(req.method) && req.headers.origin && ![`https://${req.headers.host}`, `http://127.0.0.1:${process.env.PORT || 3897}`].includes(req.headers.origin)) return respond(res, 403, { error:'origin' })
     if (url.pathname === '/api/login' && req.method === 'POST') {
       const ip = req.socket.remoteAddress || 'unknown'
@@ -96,10 +125,15 @@ createServer(async (req, res) => {
       const valid=type==='image/jpeg' ? signature[0]===255&&signature[1]===216 : type==='image/png' ? signature.subarray(0,8).equals(Buffer.from('89504e470d0a1a0a','hex')) : type==='image/webp' ? signature.toString('ascii',0,4)==='RIFF'&&signature.toString('ascii',8,12)==='WEBP' : type==='image/heic'||type==='image/heif' ? signature.toString('ascii',4,8)==='ftyp'&&['heic','heix','mif1','heif'].includes(signature.toString('ascii',8,12)) : type==='video/mp4' ? signature.toString('ascii',4,8)==='ftyp' : signature.subarray(0,4).equals(Buffer.from('1a45dfa3','hex'))
       if (!valid) return respond(res,415,{error:'invalid_media'})
       const filename=`${randomUUID()}.${ext}`
-      await writeFile(path.join(storage,'uploads',filename),bytes,{flag:'wx',mode:0o600})
+      db.prepare('INSERT INTO media_assets (path,mime_type,sha256,bytes) VALUES (?,?,?,?)').run(`/uploads/${filename}`, type, sha(bytes), bytes)
       return respond(res,201,{url:`/uploads/${filename}`,type})
     }
-    if (url.pathname.startsWith('/uploads/')) { if (!/^\/uploads\/[a-f0-9-]{36}\.(jpg|png|webp|heic|heif|mp4|webm)$/.test(url.pathname)) return respond(res,404,{error:'not_found'}); return serve(res,path.join(storage,url.pathname.slice(1))) }
+    if (pathname.startsWith('/media/')) return serveMedia(res, pathname)
+    if (pathname.startsWith('/uploads/')) {
+      if (!/^\/uploads\/[a-f0-9-]{36}\.(jpg|png|webp|heic|heif|mp4|webm)$/.test(pathname)) return respond(res,404,{error:'not_found'})
+      if (db.prepare('SELECT 1 FROM media_assets WHERE path=?').get(pathname)) return serveMedia(res,pathname)
+      return serve(res,path.join(storage,pathname.slice(1)))
+    }
     if (url.pathname.startsWith('/api/')) return respond(res,404,{error:'not_found'})
     if (!['GET','HEAD'].includes(req.method)) return respond(res,405,{error:'method'})
     const base=path.join(root,'dist'), filename=path.resolve(base,'.'+url.pathname)
