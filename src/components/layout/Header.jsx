@@ -20,7 +20,7 @@ const Header = () => {
     { path: '/memories', label: 'ספר הזיכרונות', roles: ['admin', 'ira'] },
     { path: '/gallery', label: 'גלריה', roles: ['admin', 'ira'] },
     { path: '/playlist', label: 'פלייליסט', roles: ['admin', 'ira'] },
-    { path: '/admin', label: 'ניהול', roles: ['admin'] },
+    { path: '/admin', label: 'ניהול', roles: ['admin', 'ira'] },
   ];
 
   const visibleNavItems = navItems.filter(item =>

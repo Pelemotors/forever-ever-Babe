@@ -15,7 +15,7 @@ const ProtectedRoute = ({ children, requireRole = null, allowGuest = false }) =>
   }
 
   // Check if specific role is required (for admin-only routes)
-  if (requireRole && role !== requireRole && role !== 'admin') {
+  if (requireRole && role !== requireRole && role !== 'admin' && !(requireRole === 'admin' && role === 'ira')) {
     return <Navigate to="/" replace />;
   }
 

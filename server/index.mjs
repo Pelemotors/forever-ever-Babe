@@ -16,7 +16,7 @@ db.exec(`CREATE TABLE IF NOT EXISTS greetings (id TEXT PRIMARY KEY, full_name TE
 
 if (process.argv[2] === 'set-password') {
   const [name, password] = process.argv.slice(3)
-  if (!['gal', 'ira'].includes(name) || !password || password.length < 16) throw new Error('Expected gal|ira and password of at least 16 characters')
+  if (!['gal', 'ira'].includes(name) || !password || password.length < (name === 'ira' ? 6 : 16)) throw new Error('Expected gal|ira and a valid password')
   const salt = randomBytes(32).toString('hex')
   db.prepare('INSERT INTO users VALUES (?,?,?) ON CONFLICT(name) DO UPDATE SET salt=excluded.salt, hash=excluded.hash').run(name, salt, scryptSync(password, salt, 64).toString('hex'))
   db.prepare('DELETE FROM sessions WHERE name=?').run(name)
@@ -26,7 +26,7 @@ if (process.argv[2] === 'set-password') {
 const sha = value => createHash('sha256').update(value).digest('hex')
 const respond = (res, status, data) => { res.writeHead(status, { 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'no-store' }); res.end(JSON.stringify(data)) }
 const consume = async (req, limit) => { const chunks=[]; let total=0; for await (const chunk of req) { total+=chunk.length; if (total>limit) throw new Error('too_large'); chunks.push(chunk) } return Buffer.concat(chunks) }
-const loginPage = `<!doctype html><html lang="he" dir="rtl"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>הסיפור שלנו ממשיך</title><style>body{margin:0;min-height:100vh;display:grid;place-items:center;background:linear-gradient(130deg,#321d30,#8b4556);font:18px system-ui;color:#512f3b}main{background:#fff8f0;border-radius:28px;padding:40px;max-width:380px;width:calc(100% - 64px);text-align:center;box-shadow:0 25px 80px #24101e66}h1{font:40px Georgia,serif}input,button{box-sizing:border-box;width:100%;font:inherit;padding:14px;margin:8px 0;border-radius:12px;border:1px solid #d6bdc4}button{background:#722f37;color:white;cursor:pointer}small{color:#775b65}</style><main><div style="font-size:48px">♥</div><h1>הסיפור שלנו ממשיך</h1><p>מקום פרטי לרגעים שלנו</p><form action="/api/login" method="post"><input name="name" placeholder="שם משתמש" autocomplete="username" required><input name="password" type="password" placeholder="סיסמה" autocomplete="current-password" required><button>להיכנס לספר הזיכרונות</button></form><small>For Ever & Ever Babe</small></main></html>`
+const loginPage = `<!doctype html><html lang="he" dir="rtl"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>הסיפור שלנו ממשיך</title><style>body{margin:0;min-height:100vh;display:grid;place-items:center;background:linear-gradient(130deg,#321d30,#8b4556);font:18px system-ui;color:#512f3b}main{background:#fff8f0;border-radius:28px;padding:40px;max-width:380px;width:calc(100% - 64px);text-align:center;box-shadow:0 25px 80px #24101e66}h1{font:40px Georgia,serif}input,button{box-sizing:border-box;width:100%;font:inherit;padding:14px;margin:8px 0;border-radius:12px;border:1px solid #d6bdc4}button{background:#722f37;color:white;cursor:pointer}small{color:#775b65}</style><main><div style="font-size:48px">♥</div><h1>הסיפור שלנו ממשיך</h1><p>מקום פרטי לרגעים שלנו</p><form action="/api/login" method="post"><input name="name" placeholder="אימייל" autocomplete="username" required><input name="password" type="password" placeholder="סיסמה" autocomplete="current-password" required><button>להיכנס לספר הזיכרונות</button></form><small>For Ever & Ever Babe</small></main></html>`
 const getSession = req => {
   const token = /(?:^|; )memory_session=([a-f0-9]{64})/.exec(req.headers.cookie || '')?.[1]
   return token && db.prepare('SELECT name FROM sessions WHERE token_hash=? AND expires>?').get(sha(token), Date.now())?.name
@@ -47,7 +47,9 @@ createServer(async (req, res) => {
       if (attempt.until < Date.now()) { attempt.count = 0; attempt.until = Date.now() + 600000 }
       if (attempt.count >= 8) return respond(res, 429, { error: 'try_later' })
       const form = new URLSearchParams((await consume(req, 2048)).toString())
-      const name = form.get('name')?.trim().toLowerCase()
+      const login = form.get('name')?.trim().toLowerCase()
+      const name = login === 'irasamama@gmail.com' ? 'ira' : login
+      if (login === 'ira') { res.writeHead(303, { Location:'/?login=failed' }); return res.end() }
       const row = db.prepare('SELECT salt,hash FROM users WHERE name=?').get(name)
       const candidate = scryptSync(form.get('password') || '', row?.salt || 'invalid', 64)
       if (!row || !timingSafeEqual(candidate, Buffer.from(row.hash,'hex'))) { attempt.count++; loginAttempts.set(ip,attempt); res.writeHead(303, { Location:'/?login=failed' }); return res.end() }
@@ -57,7 +59,7 @@ createServer(async (req, res) => {
       res.writeHead(303, { Location:'/', 'Set-Cookie':`memory_session=${token}; HttpOnly; Secure; SameSite=Strict; Path=/; Max-Age=2592000` }); return res.end()
     }
     const name = getSession(req)
-    if (!name) { if (url.pathname.startsWith('/api/')) return respond(res,401,{error:'login_required'}); res.writeHead(200, {'Content-Type':'text/html; charset=utf-8','Cache-Control':'no-store'}); return res.end(loginPage) }
+    if (!name) { if (url.pathname.startsWith('/api/')) return respond(res,401,{error:'login_required'}); res.writeHead(200, {'Content-Type':'text/html; charset=utf-8','Cache-Control':'no-store'}); return res.end(url.searchParams.get('login') === 'failed' ? loginPage.replace('<form', '<p role="alert" style="color:#a32638">האימייל או הסיסמה שגויים</p><form') : loginPage) }
     if (url.pathname === '/api/session') return respond(res,200,{name})
     if (url.pathname === '/api/logout' && req.method === 'POST') { const token=/(?:^|; )memory_session=([a-f0-9]{64})/.exec(req.headers.cookie || '')?.[1]; if (token) db.prepare('DELETE FROM sessions WHERE token_hash=?').run(sha(token)); res.writeHead(303,{Location:'/', 'Set-Cookie':'memory_session=; HttpOnly; Secure; SameSite=Strict; Path=/; Max-Age=0'}); return res.end() }
     if (url.pathname === '/api/memories' && req.method === 'GET') return respond(res,200,db.prepare('SELECT * FROM memories ORDER BY date DESC, created_at DESC').all())
@@ -70,7 +72,7 @@ createServer(async (req, res) => {
       return respond(res,201,{id,full_name:fullName,email,content:message,post_id:postId,status:'pending',created_at})
     }
     if (url.pathname.startsWith('/api/greetings/') && ['PATCH','DELETE'].includes(req.method)) {
-      if (name !== 'gal') return respond(res,403,{error:'admin_only'})
+      if (!['gal', 'ira'].includes(name)) return respond(res,403,{error:'admin_only'})
       const id=url.pathname.slice('/api/greetings/'.length)
       if (!/^[a-f0-9-]{36}$/.test(id)) return respond(res,404,{error:'not_found'})
       if (req.method==='DELETE') { db.prepare('DELETE FROM greetings WHERE id=?').run(id); return respond(res,200,{ok:true}) }
